@@ -21,7 +21,7 @@
                         alert($('#localized_save_before_reorder_message').val());
                         return false;
                     }
-                    
+
                     var indexes = [];
                     ui.item.parent().children('.inline-related').each(function(i)
                     {

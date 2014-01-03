@@ -1,4 +1,4 @@
-{% load i18n admin_static %}
+{% load i18n admin_static admin_names %}
 <div class="inline-group" id="{{ inline_admin_formset.formset.prefix }}-group">
   <h2>{{ inline_admin_formset.opts.verbose_name_plural|title }} {% if inline_admin_formset.formset.initial_form_count > 1 %} - {% trans "drag and drop to change order" %}{% endif %}</h2>
 {{ inline_admin_formset.formset.management_form }}
@@ -27,7 +27,7 @@
     prefix: '{{ inline_admin_formset.formset.prefix }}',
     adminStaticPrefix: '{% static "admin/" %}',
     deleteText: "{% trans "Remove" %}",
-    addText: "{% blocktrans with verbose_name=inline_admin_formset.opts.verbose_name|title %}Add another {{ verbose_name }}{% endblocktrans %}"
+    addText: "{% trans 'Add' %} {% admin_verbose_name inline_admin_formset.opts 'add' %}"
   });
 })(django.jQuery);
 </script>
