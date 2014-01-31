@@ -222,6 +222,12 @@ class SortableAdmin(SortableAdminBase, ModelAdmin):
             try:
                 indexes = list(map(str, request.POST.get('indexes', []).split(',')))
                 klass = ContentType.objects.get(id=model_type_id).model_class()
+
+                # MPTT tree ordering fix
+                rebuild = getattr(klass.objects, 'rebuild', None)
+                if callable(rebuild):
+                    klass.objects.rebuild()
+
                 objects_dict = dict([(str(obj.pk), obj) for obj in
                     klass.objects.filter(pk__in=indexes)])
                 if '-order' in klass._meta.ordering:  # desc order
